@@ -14,6 +14,7 @@ The prompt may look like the following:
 -   `(status|●2)`: on branch `status`, 2 files staged
 -   `(master|✚7…)`: on branch `master`, 7 files changed, some files untracked
 -   `(master|✖2✚3)`: on branch `master`, 2 conflicts, 3 files changed
+-   `(master|⚑2)`: on branch `master`, 2 stash entries
 -   `(experimental↓2↑3|✔)`: on branch `experimental`; your branch has diverged by 3 commits, remote by 2 commits; the repository is otherwise clean
 -   `(:70c2952|✔)`: not on any branch; parent commit has hash `70c2952`;
     the repository is otherwise clean
@@ -23,39 +24,32 @@ Here is how it could look like when you are ahead by 4 commits, behind by 5 comm
 
 <img src="https://github.com/olivierverdier/zsh-git-prompt/raw/master/screenshot.png" width=300/>
 
-
 ## Prompt Structure
 
 By default, the general appearance of the prompt is:
 
 ```
-(<branch><branch tracking>|<local status>)
+(<branch> <upstream branch> <branch tracking>|<local status>)
 ```
-
 The symbols are as follows:
 
-### Local Status Symbols
-
-|Symbol|Meaning
-|------|------|
-|✔ |   repository clean
-|●n |   there are `n` staged files
-|✖n |   there are `n` unmerged files
-|✚n |   there are `n` changed but *unstaged* files
-|… |   there are some untracked files
-
-
-### Branch Tracking Symbols
-
-Symbol | Meaning
--------|-------
-↑n |   ahead of remote by `n` commits
-↓n |   behind remote by `n` commits
-↓m↑n |   branches diverged, other by `m` commits, yours by `n` commits
-
-### Branch Symbol
-
-When the branch name starts with a colon `:`, it means it’s actually a hash, not a branch (although it should be pretty clear, unless you name your branches like hashes :-)
+- Local Status Symbols
+  - ``✔``: repository clean
+  - ``●n``: there are ``n`` staged files
+  - ``✖n``: there are ``n`` files with merge conflicts
+  - ``✖-n``: there are ``n`` staged files waiting for removal
+  - ``✚n``: there are ``n`` changed but *unstaged* files
+  - ``…n``: there are ``n`` untracked files
+  - ``⚑n``: there are ``n`` stash entries
+- Upstream branch
+  - Shows the remote tracking branch
+  - ``L``: local branch, not remotely tracked
+- Branch Tracking Symbols
+  - ``↑n``: ahead of remote by ``n`` commits
+  - ``↓n``: behind remote by ``n`` commits
+  - ``↓m↑n``: branches diverged, other by ``m`` commits, yours by ``n`` commits
+- Branch Symbol:<br />
+  When the branch name starts with a colon ``:``, it means it's actually a hash, not a branch (although it should be pretty clear, unless you name your branches like hashes :-)
 
 ## Install
 
