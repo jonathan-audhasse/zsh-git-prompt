@@ -5,7 +5,7 @@
 # h: equivalent to dirname
 export __GIT_PROMPT_DIR=${0:A:h}
 
-export GIT_PROMPT_EXECUTABLE=${GIT_PROMPT_EXECUTABLE:-"python"}
+export GIT_PROMPT_EXECUTABLE=${GIT_PROMPT_EXECUTABLE:-"python3"}
 
 # Initialize colors.
 autoload -U colors
@@ -46,6 +46,9 @@ function update_current_git_vars() {
     if [[ "$GIT_PROMPT_EXECUTABLE" == "python" ]]; then
         local gitstatus="$__GIT_PROMPT_DIR/gitstatus.py"
         _GIT_STATUS=`python ${gitstatus} 2>/dev/null`
+    elif [[ "$GIT_PROMPT_EXECUTABLE" == "python3" ]]; then
+        local gitstatus="$__GIT_PROMPT_DIR/gitstatus.py"
+        _GIT_STATUS=`python3 ${gitstatus} 2>/dev/null`
     fi
     if [[ "$GIT_PROMPT_EXECUTABLE" == "haskell" ]]; then
         _GIT_STATUS=`git status --porcelain --branch &> /dev/null | $__GIT_PROMPT_DIR/src/.bin/gitstatus`
@@ -64,7 +67,7 @@ function update_current_git_vars() {
 
 
 git_super_status() {
-	precmd_update_git_vars
+    precmd_update_git_vars
     if [ -n "$__CURRENT_GIT_STATUS" ]; then
 	  STATUS="$ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_GIT_PROMPT_BRANCH$GIT_BRANCH%{${reset_color}%}"
 	  if [ -n "$GIT_REMOTE" ]; then
